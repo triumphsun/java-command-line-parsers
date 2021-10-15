@@ -21,8 +21,9 @@ public class SimpleParserTests {
         String [] args = {"-h"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(1, inputs.size());
+        Assertions.assertEquals(2, inputs.size());
         Assertions.assertEquals(0, inputs.get("h").size());
+        Assertions.assertEquals(0, inputs.get("_").size());
     }
 
     @Test
@@ -30,10 +31,10 @@ public class SimpleParserTests {
         String [] args = {"-o", "hello.txt", "world.txt"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(1, inputs.size());
-        Assertions.assertEquals(2, inputs.get("o").size());
+        Assertions.assertEquals(2, inputs.size());
+        Assertions.assertEquals(1, inputs.get("o").size());
         Assertions.assertEquals("hello.txt", inputs.get("o").get(0));
-        Assertions.assertEquals("world.txt", inputs.get("o").get(1));
+        Assertions.assertEquals("world.txt", inputs.get("_").get(0));
     }
 
     @Test
@@ -41,10 +42,11 @@ public class SimpleParserTests {
         String [] args = {"-o", "hello.txt", "-o", "world.txt"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(1, inputs.size());
+        Assertions.assertEquals(2, inputs.size());
         Assertions.assertEquals(2, inputs.get("o").size());
         Assertions.assertEquals("hello.txt", inputs.get("o").get(0));
         Assertions.assertEquals("world.txt", inputs.get("o").get(1));
+        Assertions.assertEquals(0, inputs.get("_").size());
     }
 
     @Test
@@ -52,8 +54,9 @@ public class SimpleParserTests {
         String [] args = {"--help"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(1, inputs.size());
+        Assertions.assertEquals(2, inputs.size());
         Assertions.assertEquals(0, inputs.get("help").size());
+        Assertions.assertEquals(0, inputs.get("_").size());
     }
 
     @Test
@@ -61,10 +64,10 @@ public class SimpleParserTests {
         String [] args = {"--output", "hello.txt", "world.txt"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(1, inputs.size());
-        Assertions.assertEquals(2, inputs.get("output").size());
+        Assertions.assertEquals(2, inputs.size());
+        Assertions.assertEquals(1, inputs.get("output").size());
         Assertions.assertEquals("hello.txt", inputs.get("output").get(0));
-        Assertions.assertEquals("world.txt", inputs.get("output").get(1));
+        Assertions.assertEquals("world.txt", inputs.get("_").get(0));
     }
 
     @Test
@@ -72,8 +75,9 @@ public class SimpleParserTests {
         String [] args = {"--output", "hello.txt", "--output", "world.txt"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(1, inputs.size());
+        Assertions.assertEquals(2, inputs.size());
         Assertions.assertEquals(2, inputs.get("output").size());
+        Assertions.assertEquals(0, inputs.get("_").size());
         Assertions.assertEquals("hello.txt", inputs.get("output").get(0));
         Assertions.assertEquals("world.txt", inputs.get("output").get(1));
     }
@@ -83,9 +87,10 @@ public class SimpleParserTests {
         String [] args = {"--help", "-h"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(2, inputs.size());
+        Assertions.assertEquals(3, inputs.size());
         Assertions.assertEquals(0, inputs.get("h").size());
         Assertions.assertEquals(0, inputs.get("help").size());
+        Assertions.assertEquals(0, inputs.get("_").size());
     }
 
     @Test
@@ -93,13 +98,13 @@ public class SimpleParserTests {
         String [] args = {"--output", "hello.txt", "world.txt", "-o", "foo.txt", "bar.txt"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(2, inputs.size());
-        Assertions.assertEquals(2, inputs.get("o").size());
+        Assertions.assertEquals(3, inputs.size());
+        Assertions.assertEquals(1, inputs.get("o").size());
         Assertions.assertEquals("foo.txt", inputs.get("o").get(0));
-        Assertions.assertEquals("bar.txt", inputs.get("o").get(1));
-        Assertions.assertEquals(2, inputs.get("output").size());
+        Assertions.assertEquals("bar.txt", inputs.get("_").get(1));
+        Assertions.assertEquals(1, inputs.get("output").size());
         Assertions.assertEquals("hello.txt", inputs.get("output").get(0));
-        Assertions.assertEquals("world.txt", inputs.get("output").get(1));
+        Assertions.assertEquals("world.txt", inputs.get("_").get(0));
     }
 
     @Test
@@ -107,10 +112,11 @@ public class SimpleParserTests {
         String [] args = {"-xvf"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(3, inputs.size());
+        Assertions.assertEquals(4, inputs.size());
         Assertions.assertEquals(0, inputs.get("x").size());
         Assertions.assertEquals(0, inputs.get("v").size());
         Assertions.assertEquals(0, inputs.get("f").size());
+        Assertions.assertEquals(0, inputs.get("_").size());
     }
 
     @Test
@@ -118,12 +124,12 @@ public class SimpleParserTests {
         String [] args = {"-xvf", "hello.txt", "world.txt"};
         Map<String, List<String>> inputs = this.parser.parse(args);
         Assertions.assertNotNull(inputs);
-        Assertions.assertEquals(3, inputs.size());
+        Assertions.assertEquals(4, inputs.size());
         Assertions.assertEquals(0, inputs.get("x").size());
         Assertions.assertEquals(0, inputs.get("v").size());
-        Assertions.assertEquals(2, inputs.get("f").size());
+        Assertions.assertEquals(1, inputs.get("f").size());
         Assertions.assertEquals("hello.txt", inputs.get("f").get(0));
-        Assertions.assertEquals("world.txt", inputs.get("f").get(1));
+        Assertions.assertEquals("world.txt", inputs.get("_").get(0));
     }
 
 }
